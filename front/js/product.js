@@ -51,5 +51,13 @@ function collect (data) {
         //option.setAttribute("value", colors);
         option.textContent = colors;
 }
+    addToCart();
+}
+
+function addToCart() {
+    const btnCart = document.querySelector("#addToCart");
+    console.log(addToCart, "ok");
+    btnCart.addEventListener('click',data);
+   
 }
 
