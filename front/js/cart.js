@@ -1,14 +1,15 @@
-//initialisation local storage
+//---Initialisation local storage---
 let cartProducts = JSON.parse(localStorage.getItem("product"));
 console.log(cartProducts, "produits ok");
 
 function getItems() {
-    //Affichage si panier vide
+    //---Affichage si panier vide---
     if (cartProducts === null || cartProducts.length === 0) {
       let emptyCart = document.createElement("article");
       document.querySelector("#cart__items").appendChild(emptyCart);
       emptyCart.textContent = "Votre panier est vide";
     }else{
+        //---Création des balises---
         for (let products of cartProducts) {
             //création balise <article>
             let article = document.createElement("article");
@@ -81,6 +82,108 @@ function getItems() {
 
 getItems()
 
+//---Calcul de la quantité total et du prix total des articles---
+function totalItems() {
+  //---Calcul de la quantité---
+  let itemsQuantity = document.getElementsByClassName("itemQuantity");
+
+  let totalQuantity = 0;
+
+  for (let index = 0; index < itemsQuantity.length; index++) {
+    totalQuantity += itemsQuantity[index].valueAsNumber;
+  }
+  let totalQuantityItems = document.getElementById("totalQuantity");
+  totalQuantityItems.textContent = totalQuantity;
+  console.log(totalQuantity, "reçu")
+
+  //---Calcul du Prix---
+  let totalPrice = 0;
+  for (let index = 0; index < itemsQuantity.length; index++) {
+    totalPrice += itemsQuantity[index].valueAsNumber * cartProducts[index].price;
+  }
+  let productTotalPrice = document.getElementById("totalPrice");
+  productTotalPrice.textContent = totalPrice;
+  console.log(totalPrice, "prix addition")
+}
+totalItems();
+
+//---Modifier la quantité des produits---
+function changeQuantity() {
+  const modifQuantity = document.querySelectorAll(".itemQuantity");
+
+  for (let index = 0; index < modifQuantity.length; index++) {
+    modifQuantity[index].addEventListener('change', function (event) {
+      event.preventDefault();
+
+      cartProducts[index].quantity = event.target.value;
+
+      if (
+        cartProducts[index].quantity == 0 ||
+        cartProducts[index].quantity > 100
+      ) {
+        alert('Merci de sélectionner une quantité comprise entre 1 et 100');
+        location.reload();
+      } else {
+        localStorage.setItem("product", JSON.stringify(cartProducts));
+        totalItems();
+        
+      }
+    });
+  }
+}
+changeQuantity()
+
+//---Supprimer un produit---
+function removeItem() {
+  const moveItem = document.querySelectorAll('.deleteItem');
+  for (let index = 0; index < moveItem.length; index++) {
+    moveItem[index].addEventListener('click', (event) => {
+      event.preventDefault();
+      //---Confirmer la suppression de la ligne article---//
+      if (
+        window.confirm(
+          `Êtes-vous sûr de vouloir supprimer ${cartProducts[index].quantity} ${cartProducts[index].nom} couleur ${cartProducts[index].color} ?`
+        )
+      ) {
+        let idMoveItem = cartProducts[index].idProduit;
+        let colorMoveItem = cartProducts[index].color;
+
+        cartProducts = cartProducts.filter(
+          (element) =>
+            element.idProduit !== idMoveItem || element.color !== colorMoveItem
+        );
+        localStorage.setItem('product', JSON.stringify(cartProducts));
+        location.reload();
+      }
+    });
+  }
+}
+
+removeItem()
+
+
+//----------------Début du Formulaire--------//
+
+//---Regex-----//
+
+//---Travail sur le formulaire------//
+
+//---Postage des infos sur API avec POST---//
+
+
+
+
+//--------------------------------------
+//appeler toutes mes fonctions à la fin
+
+
+
+
+
+
+
+
+
 /* --------------------------------------------------------------------
 ------------------ tuto panier --------------------------------
 
@@ -102,7 +205,7 @@ function addBasket (product) {
     }
     saveBasket(basket);
 }
-
+for
 //retirer un produit du panier
 //**sur page panier fonction à appeler sur
 // le bouton retrait de la ligne produit**/
