@@ -1,23 +1,23 @@
-//---recuperation de l'API---
+//---Récupération de l'API---
 async function getItems() {
-        try{
-                const reponseJSON = await fetch('http://localhost:3000/api/products');
+        try {
+                const reponseJSON = await fetch("http://localhost:3000/api/products");
                 const reponseJS = await reponseJSON.json();
-                console.log(reponseJS, 'objet Javascript')
+                //console.log(reponseJS, "objet Javascript")
                 return reponseJS;
         }
-        catch(error){
-                console.log(error, "erreur")
+        catch(error) {
+                //console.log(error, "erreur")
                 return(error);
         }
 }
 
 getItems();                
 
-//---recuperation donnees API dans le DOM---
+//---Récupération données API dans le DOM---
 async function addItems() {
         const items = await getItems()
-             console.log(items,"ok");  
+                //console.log(items,"ok")  
         for (let item of items) {
                 //création balise <a>
                 let a = document.createElement("a");
