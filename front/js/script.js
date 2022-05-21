@@ -17,7 +17,7 @@ getItems();
 //---Récupération données API dans le DOM---
 async function addItems() {
         const items = await getItems()
-                //console.log(items,"ok")  
+                //console.table(items,"ok")  
         for (let item of items) {
                 //création balise <a>
                 let a = document.createElement("a");
