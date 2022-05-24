@@ -1,6 +1,6 @@
 //---Initialisation local storage---
 let cartProducts = JSON.parse(localStorage.getItem("product"));
-//console.log(cartProducts, "produits ok");
+console.log(cartProducts, "produits ok");
 
 //---Récupèration du prix dans l'api---
 fetch('http://localhost:3000/api/products')
@@ -13,7 +13,7 @@ fetch('http://localhost:3000/api/products')
         const product = data.find((d) => d._id === p.idProduit);
         if (product) {
           p.price = product.price;
-          //console.log(typeof p.price, "valeurs")
+          console.log(typeof p.price, "valeurs")
           console.log(p.price, "valeurs")
         }
         
@@ -143,8 +143,9 @@ function changeQuantity() {
     modifQuantity[index].addEventListener("change", function (event) {
       event.preventDefault();
       cartProducts[index].quantity = event.target.value;
+      console.log(cartProducts[index].quantity)
       //---Si quantité saisie n'est pas correcte---
-      if (cartProducts[index].quantity == 0 || cartProducts[index].quantity > 100
+      if (cartProducts[index].quantity === 0 || cartProducts[index].quantity > 100 || cartProducts[index].quantity < 0
       ) {
         alert('Merci de sélectionner une quantité comprise entre 1 et 100');
         location.reload();
