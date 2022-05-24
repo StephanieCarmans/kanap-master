@@ -8,13 +8,13 @@ fetch('http://localhost:3000/api/products')
   .then((data) => {
     if (cartProducts) {
       for (p of cartProducts) {
-        //console.table(data);
-        //console.table(cartProducts);
+        console.table(data);
+        console.table(cartProducts);
         const product = data.find((d) => d._id === p.idProduit);
         if (product) {
           p.price = product.price;
           //console.log(typeof p.price, "valeurs")
-          //console.log(p.price, "valeurs")
+          console.log(p.price, "valeurs")
         }
         
       }
@@ -131,7 +131,7 @@ function totalItems() {
 
   let productTotalPrice = document.getElementById("totalPrice");
   productTotalPrice.textContent = totalPrice;
-  console.log(totalPrice, "prix addition")
+  //console.log(totalPrice, "prix addition")
 }
 
 
@@ -287,6 +287,7 @@ function orderForm() {
       };
       //console.table(myOrder);
 
+
       //---Postage des infos sur API avec POST---//
       //---Appel de l'API pour post les informations order---
       const postOptions = fetch("http://localhost:3000/api/products/order" , {
@@ -300,13 +301,13 @@ function orderForm() {
         //console.log(postOptions)
         postOptions.then(async(response) => {
           try{
-            //console.log(response);
+            console.log(response);
             const data = await response.json();
-            //console.log(data);
+            console.log(data);
             const orderId = data.orderId;
-            //console.log(orderId, "numéro de commande")
+            console.log(orderId, "numéro de commande")
             //---Envoie vers la page de de confirmation---
-           window.location.href = `confirmation.html?orderId=${orderId}. Merci pour votre commande.`;
+            window.location.href = `confirmation.html?orderId=${orderId}. Merci pour votre commande.`;
             //---Suppression du localStorage---
             let removeStorage = window.localStorage;
             removeStorage.clear();
