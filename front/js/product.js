@@ -85,7 +85,7 @@ function addToCart(data){
     //console.log(productOptions);    
 
     //---Cas où utilisateur oublie de selectionner une quantité et/ou une couleur---
-    if (quantitySelect == 0 || quantitySelect > 100 || colorSelect == null || colorSelect == "") {
+    if (quantitySelect <= 0 || quantitySelect > 100 || colorSelect == null || colorSelect == "") {
         alert("Merci de remplir les champs quantité et/ou couleur.")
         //---Alors faire un message de rappel de selection---
         return (alert);
